@@ -1,20 +1,93 @@
-// chapter 6 programming project.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+/*
+    getLength_Width
+    Asks user for the length and width of a rectangle.
+    Preconditions: User must enter positive numbers (> 0).
+    Postconditions: Stores validated length and width in reference parameters.
+*/
+void getLength_Width(double& length, double& width);
+
+/*
+    calcPerimeter
+    Receives validated length and width.
+    Returns the calculated perimeter to the caller.
+*/
+double calcPerimeter(double length, double width);
+
+/*
+    calcArea
+    Receives validated length and width.
+    Returns the calculated area to the caller.
+*/
+double calcArea(double length, double width);
+
+/*
+    displayProperties
+    Displays the rectangle’s perimeter and area.
+    Preconditions: perimeter and area must already be calculated.
+    Postconditions: prints values to the monitor.
+*/
+void displayProperties(double perimeter, double area);
+
+int main() {
+    double length, width;
+    double perimeter, area;
+    char choice = 'y';
+
+    cout << "Rectangle Properties Program\n";
+    cout << "-----------------------------\n";
+
+    while (choice == 'y' || choice == 'Y') {
+
+        // Get length and width
+        getLength_Width(length, width);
+
+        // Calculate results
+        perimeter = calcPerimeter(length, width);
+        area = calcArea(length, width);
+
+        // Display results
+        displayProperties(perimeter, area);
+
+        // Ask user if they want to process another rectangle
+        cout << "\nWould you like to process another rectangle? (y/n): ";
+        cin >> choice;
+        cout << endl;
+    }
+
+    cout << "Have a nice day.\n";
+    return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void getLength_Width(double& length, double& width) {
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    cout << "Enter rectangle length: ";
+    cin >> length;
+    while (length <= 0) {
+        cout << "Invalid! Length must be > 0. Enter again: ";
+        cin >> length;
+    }
+
+    cout << "Enter rectangle width: ";
+    cin >> width;
+    while (width <= 0) {
+        cout << "Invalid! Width must be > 0. Enter again: ";
+        cin >> width;
+    }
+}
+
+double calcPerimeter(double length, double width) {
+    return 2 * (length + width);
+}
+
+double calcArea(double length, double width) {
+    return length * width;
+}
+
+void displayProperties(double perimeter, double area) {
+    cout << "\nRectangle Properties:\n";
+    cout << "Perimeter: " << perimeter << endl;
+    cout << "Area: " << area << endl;
+}
